@@ -10,44 +10,40 @@ def is_number(number):
     dot = 0
     i = 0
     if not is_digit(number[0]):
-        raise Exception("Error: invalid expression")
+        raise Exception("Error: invalid number")
 
-    while True:
+    while i < len(number):
         if not is_digit(number[i]):
             break
         i += 1
 
     if number[i] == ".":
         i += 1
-        while True:
+        while i < len(number):
             if not is_digit(number[i]):
                 break
             i += 1
-    if number[i] == "e":
-        i += 1
-        if number[i] != "+" and number[i] != "-" and not is_digit(number[i]):
-            raise Exception("Error: invalid expression")
-        i += 1
-
-
-
-    for i in number:
-        if is_digit(i):
-            continue
-        elif i == ".":
-            if dot == 0:
-                dot = 1
-            else:
-                raise Exception("Error: invalid expression")
-        elif i == "e":
-            continue
-
+    
+    if i < len(number):
+        if number[i] == "e":
+            i += 1
+            if i >= len(number):
+                raise Exception("Error: invalid number")
+            if (number[i] != "+" and number[i] != "-" and not is_digit(number[i])):
+                raise Exception("Error: invalid number")
+            i += 1
+            while i < len(number):
+                if not is_digit(number[i]):
+                    raise Exception("Error: invalid number")
+                i += 1
+        else:
+            raise Exception("Error: invalid number")
+    
+    return float(number)
     #2222.222
     #2e
     #10e2
     #10e-2
-
-    return num
 
 
 def is_digit(digit: int) -> bool:  # Verifica se o caracter é um dígito ou não
@@ -104,13 +100,13 @@ def main():
 
     t = "8^-2 + 2E1 * 2e-1 + 3e+3 / 2.012"
 
-    a = 2. + 2
-    print(a)
+    a = "222e-2"
+    print(is_number(a))
 
-    print(filter_expression(t))
+    #print(filter_expression(t))
 
 
 if __name__ == '__main__':
     import sys
 
-    sys.exit(main())
+    main()
