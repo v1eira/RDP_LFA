@@ -2,7 +2,7 @@ def is_expr(expr): # Verifica se a string de entrada é uma expressão válida
     left = 0.0
     right = ""
     plusMinus = ["+", "-"]
-    operands = ["*", "/", "//", "%"]
+    operands = ["*", "/", "//", "%", "^", "e"]
     firstElement = 0
     seeNumber = 0
     msg = "Error: invalid expression"
@@ -21,7 +21,7 @@ def is_expr(expr): # Verifica se a string de entrada é uma expressão válida
                 raise Exception(msg)
             seeNumber = 1
             right += expr[i]
-        elif expr[i] in plusMinus and seeNumber == 1 and expr[i-1] not in operands:
+        elif expr[i] in plusMinus and seeNumber == 1 and expr[i-1] not in operands and expr[i-1] not in plusMinus:
             if countParenthesis == 0:
                 if firstElement == 0:
                     firstElement = 1
@@ -107,7 +107,6 @@ def is_factor(factor): # Verifica se a string de entrada é um fator válido
 
     if i < len(factor) and factor[i] == "^":
         i += 1
-        
         if i >= len(factor):
             raise Exception(msg)
         
@@ -218,6 +217,7 @@ def calc(num1, num2, op):
 def verifyParenthesis(expression):
     msg = "Error: invalid number of parenthesis"
     count = 0
+
     for i in range(0, len(expression)):
         if expression[i] == "(":
             count += 1
@@ -226,8 +226,6 @@ def verifyParenthesis(expression):
     
     if count != 0:
         raise Exception(msg)
-    
-    return True
 
 
 def filter_expression(expression):  # Remove espaços em branco e torna a string minúscula
@@ -237,7 +235,19 @@ def filter_expression(expression):  # Remove espaços em branco e torna a string
 
 
 def main():
-    expressions: list = ["++++++2 - 4.0 / ----1.",
+    expressions: list = ["2 + 2",
+                         "3 * 23",
+                         "3 - 2 * 7",
+                         "2 // 20",
+                         "++++++2 - 4.0 / ----1.",
+                         "34 + 213 + 2.12 / 21",
+                         "10 * 5 + 100 / 10 - 5 + 7 % 2",
+                         "(10) * 5 + (100 // 10) - 5 + (7 % 2)",
+                         "-((2+2)*2)-((2-0)+2)",
+                         "(2.*(2.0+2.))-(2.0+(2.-0))",
+                         "-(100) + 21 / (43 % 2)",
+                         "3^4+5*(2-5)",
+                         "3^2+5//(2-5)",
                          "2^2^2^-2",
                          "0.02e2 + 0.02e-2",
                          "8^-2 + 2E1 * 2e-1 + 3e+3 / 2.012",
