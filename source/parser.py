@@ -114,7 +114,7 @@ def is_factor(factor): # Verifica se a string de entrada é um fator válido
     return base
 
 
-def is_base(base): # Verifica se a base de entrada é uma base válida
+def is_base(base): # Verifica se a string de entrada é uma base válida
     num = "" ; rest = "" ; expr = ""
     msg = "Error: invalid base."
     operands = ["+", "-"]
