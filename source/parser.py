@@ -1,15 +1,11 @@
 def is_expr(expr): # Verifica se a string de entrada é uma expressão válida
+    right = "" ; op = ""
+    msg = "Error: invalid expression."
+    plusMinus = ["+", "-"] ; operands = ["*", "/", "//", "%", "^", "e"]
     left = 0.0
-    right = ""
-    plusMinus = ["+", "-"]
-    operands = ["*", "/", "//", "%", "^", "e"]
-    firstElement = 0
-    seeNumber = 0
-    msg = "Error: invalid expression"
-    op = ""
-    countParenthesis = 0
+    firstElement = 0 ; seeNumber = 0 ; countParenthesis = 0
 
-    verifyParenthesis(expr)
+    verify_parenthesis(expr)
 
     for i in range(0, len(expr)):
         if expr[i] == "(":
@@ -47,13 +43,11 @@ def is_expr(expr): # Verifica se a string de entrada é uma expressão válida
 
 
 def is_term(term): # Verifica se a string de entrada é um termo válido
-    left = 0.0
-    right = ""
+    right = "" ; op = ""
+    msg = "Error: invalid term."
     operands = ["*", "/", "//", "%"]
-    firstElement = 0
-    msg = "Error: invalid term"
-    op = ""
-    countParenthesis = 0
+    left = 0.0
+    firstElement = 0 ; countParenthesis = 0
 
     for i in range(0, len(term)):
         # Caso right tenha recebido "/" na posição anterior. "//" já está salvo em op
@@ -95,8 +89,8 @@ def is_term(term): # Verifica se a string de entrada é um termo válido
 
 
 def is_factor(factor): # Verifica se a string de entrada é um fator válido
-    msg = "Error: invalid factor"
     base = ""
+    msg = "Error: invalid factor."
     
     for i in range(0, len(factor)):
         if factor[i] == "^":
@@ -121,11 +115,9 @@ def is_factor(factor): # Verifica se a string de entrada é um fator válido
 
 
 def is_base(base): # Verifica se a base de entrada é uma base válida
-    msg = "Error: invalid base"
+    num = "" ; rest = "" ; expr = ""
+    msg = "Error: invalid base."
     operands = ["+", "-"]
-    num = ""
-    rest = ""
-    expr = ""
 
     if base[0] == "+":
         return is_base(base = base.replace("+", "", 1))
@@ -146,8 +138,8 @@ def is_base(base): # Verifica se a base de entrada é uma base válida
 
 
 def is_number(number): # Verifica se a string de entrada é um número válido
+    msg = "Error: invalid number."
     operands = ["+", "-"]
-    msg = "Error: invalid number"
     i = 0
     
     if not is_digit(number[0]):
@@ -191,13 +183,13 @@ def is_number(number): # Verifica se a string de entrada é um número válido
     return float(number)
 
 
-def is_digit(digit: int) -> bool:  # Verifica se o caracter de entrada é um dígito válido
+def is_digit(digit):  # Verifica se o caracter de entrada é um dígito válido
     digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
     return True if digit in digits else False
 
 
-def calc(num1, num2, op):
+def calc(num1, num2, op): # Retorna o resultado das operações (+, -, *, /, // e %) entre dois números
     if op == "+":
         return num1 + num2
     elif op == "-":
@@ -214,8 +206,7 @@ def calc(num1, num2, op):
         raise Exception("Error: invalid operand.")
 
 
-def verifyParenthesis(expression):
-    msg = "Error: invalid number of parenthesis"
+def verify_parenthesis(expression): # Verifica se todos os parênteses que foram abertos na expressão foram fechados
     count = 0
 
     for i in range(0, len(expression)):
@@ -225,44 +216,10 @@ def verifyParenthesis(expression):
             count -= 1
     
     if count != 0:
-        raise Exception(msg)
+        raise Exception("Error: invalid number of parenthesis.")
 
 
-def filter_expression(expression):  # Remove espaços em branco e torna a string minúscula
+def filter_expression(expression):  # Remove espaços em branco e torna a string de entrada minúscula
     expression = "".join(expression.split()).lower()
 
     return expression
-
-
-def main():
-    expressions: list = ["2 + 2",
-                         "3 * 23",
-                         "3 - 2 * 7",
-                         "2 // 20",
-                         "++++++2 - 4.0 / ----1.",
-                         "34 + 213 + 2.12 / 21",
-                         "10 * 5 + 100 / 10 - 5 + 7 % 2",
-                         "(10) * 5 + (100 // 10) - 5 + (7 % 2)",
-                         "-((2+2)*2)-((2-0)+2)",
-                         "(2.*(2.0+2.))-(2.0+(2.-0))",
-                         "-(100) + 21 / (43 % 2)",
-                         "3^4+5*(2-5)",
-                         "3^2+5//(2-5)",
-                         "2^2^2^-2",
-                         "0.02e2 + 0.02e-2",
-                         "8^-2 + 2E1 * 2e-1 + 3e+3 / 2.012",
-                         "8^2 + 2E1 * 2e-1 + 3e+3 // 2.",
-                         "(-2.3)^2 + 2.2E1 * 2e-12 + 1e+3"]
-
-    for i in expressions:
-        print()
-        print(filter_expression(i))
-        print(is_expr(filter_expression(i)))
-
-    
-if __name__ == '__main__':
-    import sys
-
-    main()
-
- 
