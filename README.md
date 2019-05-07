@@ -18,7 +18,7 @@ Os arquivos criados na construção deste trabalho estão dentro da pasta ``sour
     - ``calc`` : retorna o resultado das operações (+, -, *, /, // e %) entre dois números.
     - ``verify_parenthesis`` : verifica se todos os parênteses que foram abertos na expressão foram fechados.
     - ``filter_expression`` : remove espaços em branco e torna a string de entrada minúscula.
-- [rdp.sh](source/rdp.sh) : arquivo que simplesmente executa a ``main``
+- [rdp.sh](source/rdp.sh) : arquivo que simplesmente executa a ``main``.
 
 #### Executando o programa
 Para executar o programa no Ubuntu, abra o terminal, vá até a pasta ``source`` e digite o comando ``./rdp.sh``.
